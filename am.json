@@ -1,0 +1,74 @@
+{
+    "actions": [
+        {
+            "type": "textContentParser",
+            "selectors": "",
+            "valueFormat": {
+                "trim": "",
+                "substrStart": -1,
+                "substrEnd": -1
+            },
+            "default": "",
+            "storageKey": "price"
+        },
+        {
+            "type": "keyValueArrayParser",
+            "selectors": "",
+            "keySelectors": "",
+            "valueSelectors": "",
+            "split": "",
+            "keyFormat": {
+                "trim": true,
+                "substrStart": -1,
+                "substrEnd": -1
+            },
+            "valueFormat": {
+                "trim": true,
+                "substrStart": -1,
+                "substrEnd": -1
+            },
+            "defaults": {
+                "key": "a"
+            },
+            "storageKey": "featureArray"
+        },
+        {
+            "desc": "insert button",
+            "type": "insertHtml",
+            "insertNodeAfterSelectors": [
+
+            ],
+            "insertTagId": "buy-button-of-plugin",
+            "html": "<span>Buy Buy</span>",
+            "onClickActions": [
+                {
+                    "desc": "submit order",
+                    "type": "httpRequest",
+                    "method": "POST",
+                    "url": "",
+                    "headers": [
+                        ["x-verify-key", "1024"]
+                    ],
+                    "data": {
+                        "price": "#{price}",
+                        "featureArray": "#{featureArray}" 
+                    },
+                    "successActions": [
+                        {
+                            "desc": "open order page",
+                            "type": "openPage",
+                            "url": "#{params.url}"
+                        }
+                    ],
+                    "failedActions": [
+                        {
+                            "desc": "submit order failed",
+                            "type": "alert",
+                            "message": "#{params.message}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
