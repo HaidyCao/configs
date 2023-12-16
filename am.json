@@ -2,7 +2,7 @@
     "actions": [
         {
             "type": "textContentParser",
-            "selectors": "",
+            "selectors": "div#corePrice_feature_div span.a-price.a-text-price.a-size-medium span",
             "valueFormat": {
                 "trim": "",
                 "substrStart": -1,
@@ -13,10 +13,10 @@
         },
         {
             "type": "keyValueArrayParser",
-            "selectors": "",
-            "keySelectors": "",
-            "valueSelectors": "",
-            "split": "",
+            "selectors": "div#productOverview_feature_div tr",
+            "keySelectors": "td span",
+            "valueSelectors": "td:last-of-type span",
+            "split": null,
             "keyFormat": {
                 "trim": true,
                 "substrStart": -1,
