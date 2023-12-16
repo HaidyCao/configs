@@ -36,10 +36,11 @@
             "desc": "insert button",
             "type": "insertHtml",
             "insertNodeAfterSelectors": [
-
+                "div#buyNow_feature_div",
+                "div#addToCart_feature_div"
             ],
             "insertTagId": "buy-button-of-plugin",
-            "html": "<span>Buy Buy</span>",
+            "html": "<span id=\"submit-a-plugin-buy\" class=\"a-button a-spacing-small a-button-primary a-button-icon natc-enabled\"><span class=\"a-button-inner\"> <i class=\"a-icon a-icon-cart\"></i><span class=\"a-button-text\" aria-hidden=\"true\">Buy Buy Buy</span></span></span>",
             "onClickActions": [
                 {
                     "desc": "submit order",
