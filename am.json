@@ -64,6 +64,15 @@
                                 "desc": "submit order failed",
                                 "type": "alert"
                             }
+                        ],
+                        "timeoutActions": [
+                            {
+                                "type": "toJSONString"
+                            },
+                            {
+                                "desc": "submit order failed",
+                                "type": "alert"
+                            }
                         ]
                     }
                 ]
