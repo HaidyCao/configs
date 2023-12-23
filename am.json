@@ -3,32 +3,22 @@
         {
             "type": "textContentParser",
             "selectors": "div#corePrice_feature_div span.a-price.a-text-price.a-size-medium span",
-            "valueFormat": {
-                "trim": "",
-                "substrStart": -1,
-                "substrEnd": -1
-            },
+            "valueActions": [],
             "default": "",
             "storageKey": "price"
         },
         {
             "type": "keyValueArrayParser",
             "selectors": "div#productOverview_feature_div tr",
-            "keySelectors": "td span",
-            "valueSelectors": "td:last-of-type span",
+            "subSelectors": {
+                "key": "td span",
+                "value": "td:last-of-type span"
+            },
             "split": null,
-            "keyFormat": {
-                "trim": true,
-                "substrStart": -1,
-                "substrEnd": -1
-            },
-            "valueFormat": {
-                "trim": true,
-                "substrStart": -1,
-                "substrEnd": -1
-            },
+            "keyActions": [],
+            "valueAction": [],
             "defaults": {
-                "key": "a"
+                "color": "black"
             },
             "storageKey": "featureArray"
         },
@@ -39,37 +29,45 @@
                 "div#buyNow_feature_div",
                 "div#addToCart_feature_div"
             ],
-            "insertTagId": "buy-button-of-plugin",
+            "tag": "div",
+            "attrs": {"class": "a-button-stack"},
+            "tagId": "buy-button-of-plugin",
             "html": "<span id=\"submit-a-plugin-buy\" class=\"a-button a-spacing-small a-button-primary a-button-icon natc-enabled\"><span class=\"a-button-inner\"> <i class=\"a-icon a-icon-cart\"></i><span class=\"a-button-text\" aria-hidden=\"true\">Buy Buy Buy</span></span></span>",
-            "onClickActions": [
-                {
-                    "desc": "submit order",
-                    "type": "httpRequest",
-                    "method": "POST",
-                    "url": "",
-                    "headers": [
-                        ["x-verify-key", "1024"]
-                    ],
-                    "data": {
-                        "price": "#{price}",
-                        "featureArray": "#{featureArray}" 
-                    },
-                    "successActions": [
-                        {
-                            "desc": "open order page",
-                            "type": "openPage",
-                            "url": "#{params.url}"
-                        }
-                    ],
-                    "failedActions": [
-                        {
-                            "desc": "submit order failed",
-                            "type": "alert",
-                            "message": "#{params.message}"
-                        }
-                    ]
-                }
-            ]
+            "events": {
+                "onclick": [
+                    {
+                        "desc": "submit order",
+                        "type": "httpRequest",
+                        "method": "POST",
+                        "url": "http://localhost:8080/testRequest",
+                        "headers": [
+                            ["x-verify-key", "1024"]
+                        ],
+                        "data": {
+                            "price": "#{price}",
+                            "featureArray": "#{featureArray}" 
+                        },
+                        "successActions": [
+                            {
+                                "type": "toJSONString"
+                            },
+                            {
+                                "desc": "alert post data",
+                                "type": "alert"
+                            }
+                        ],
+                        "failedActions": [
+                            {
+                                "type": "toJSONString"
+                            },
+                            {
+                                "desc": "submit order failed",
+                                "type": "alert"
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }
