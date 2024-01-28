@@ -5,6 +5,12 @@
             "downloadBaseUrl": "https://github.com/HaidyCao/FrpMobile/releases/download/v0.53.2/",
             "arm_frpc": "arm_frpc",
             "arm_frps": "arm_frps"
+        },
+        {
+            "version": "0.52.3",
+            "downloadBaseUrl": "https://github.com/HaidyCao/FrpMobile/releases/download/v0.52.3/",
+            "arm_frpc": "arm_frpc",
+            "arm_frps": "arm_frps"
         }
     ]
 }
