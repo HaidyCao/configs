@@ -47,6 +47,18 @@
             "x86_64_frps_md5": "6277e44dec53b87cd2794eda6e10b6cb",
             "x86_frpc_md5": "458f7233807c1bb665a6496180f85b38",
             "x86_frps_md5": "7e4259a1da5164cb66c540485928ba04"
+        },
+        {
+            "version": "0.38.0",
+            "downloadBaseUrl": "https://github.com/HaidyCao/FrpMobile/releases/download/v0.38.0/",
+            "arm64_frpc_md5": "b7beb743f3f5259863e8e526993c234e",
+            "arm64_frps_md5": "37bf93488de2686822bccf4c5873f29b",
+            "arm_frpc_md5": "55ee23aac92f098edb0667dda0b86aea",
+            "arm_frps_md5": "b6e78729c2e596d6aea0365c661b7148",
+            "x86_64_frpc_md5": "852ff949b3d6e3538bc2e5b49349a6ef",
+            "x86_64_frps_md5": "ef3e34e29a327c76441b2329f6516752",
+            "x86_frpc_md5": "bdf39467247a57c73a62ec477d779ec9",
+            "x86_frps_md5": "7ee0f13aa1495194d70e7033fed074d3"
         }
     ]
 }
