@@ -88,4 +88,4 @@ insertHtml('div', 'buy-button-of-plugin', ['div#buyNow_feature_div', 'div#addToC
   onclick: function () {
     console.log('on click')
   }
-}, '<span id=\\"submit-a-plugin-buy\\" class=\\"a-button a-spacing-small a-button-primary a-button-icon natc-enabled\\"><span class=\\"a-button-inner\\"> <i class=\\"a-icon a-icon-cart\\"></i><span class=\\"a-button-text\\" aria-hidden=\\"true\\">Buy Buy Buy</span></span></span>')
+}, '<span id="submit-a-plugin-buy" class="a-button a-spacing-small a-button-primary a-button-icon natc-enabled"><span class="a-button-inner"> <i class="a-icon a-icon-cart"></i><span class="a-button-text" aria-hidden="true">Buy Buy Buy</span></span></span>')
