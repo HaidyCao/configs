@@ -75,14 +75,30 @@ function insertHtml (tag, tagId, insertNodeAfterSelectors, attrs, events, html) 
   }
 }
 
+function extractAmazonProductId (url) {
+  // 匹配 Amazon 商品详情页链接中的标识符部分，包括查询参数
+  const regex = /\/dp\/([A-Z0-9]{10})(?:\/|\?|$)/
+  const match = url.match(regex)
+
+  // 如果匹配成功，返回商品标识符
+  if (match?.[1]) {
+    return match[1]
+  } else {
+    // 如果匹配失败，返回空字符串或者 null
+    return null
+  }
+}
+
 let price = queryText('div#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen')
 if (isNil(price)) {
   price = queryText('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center.aok-relative > span.aok-offscreen')
 }
 const featureArray = queryKeyValueArray('div#productOverview_feature_div tr', null, { key: 'td span', value: 'td:last-of-type span' })
+const productId = extractAmazonProductId(location.href)
 
 console.log(`price: ${price}`)
 console.log(`featureArray: ${JSON.stringify(featureArray)}`)
+console.log(`productId = ${productId}`)
 
 insertHtml('div', 'buy-button-of-plugin', ['div#buyNow_feature_div', 'div#addToCart_feature_div'], { class: 'a-button-stack' }, {
   onclick: function () {
