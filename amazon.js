@@ -81,7 +81,7 @@ function extractAmazonProductId (url) {
   const match = url.match(regex)
 
   // 如果匹配成功，返回商品标识符
-  if (match?.[1]) {
+  if (match && match.length > 0) {
     return match[1]
   } else {
     // 如果匹配失败，返回空字符串或者 null
@@ -98,7 +98,10 @@ const productId = extractAmazonProductId(location.href)
 
 console.log(`price: ${price}`)
 console.log(`featureArray: ${JSON.stringify(featureArray)}`)
-console.log(`productId = ${productId}`)
+
+if (productId) {
+  console.log(`productId = ${productId}`)
+}
 
 insertHtml('div', 'buy-button-of-plugin', ['div#buyNow_feature_div', 'div#addToCart_feature_div'], { class: 'a-button-stack' }, {
   onclick: function () {
