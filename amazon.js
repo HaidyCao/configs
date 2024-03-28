@@ -3,11 +3,11 @@ function isNil (obj) {
 }
 
 function queryText (selectors) {
-  const result = document.querySelector(selectors)
-  if (isNil(result)) {
+  let nodes = document.querySelector(selectors)
+  if (isNil(nodes)) {
     return null
   }
-  return result.textContent
+  return nodes.textContent
 }
 
 function queryKeyValueArray (selectors, split, subSelectors) {
@@ -93,14 +93,38 @@ let price = queryText('div#corePrice_feature_div > div > div > span.a-price.aok-
 if (isNil(price)) {
   price = queryText('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center.aok-relative > span.aok-offscreen')
 }
+if (isNil(price)) {
+  price = queryText('#corePrice_feature_div > div > span.a-price.a-text-price.a-size-medium > span.a-offscreen')
+}
 const featureArray = queryKeyValueArray('div#productOverview_feature_div tr', null, { key: 'td span', value: 'td:last-of-type span' })
 const productId = extractAmazonProductId(location.href)
+
+const modelName = featureArray.find(item => item.key === 'Model Name')
+let productName = modelName ? modelName.value : undefined
+if (isNil(productName)) {
+  productName = queryText('#productTitle')
+}
+
+let productImg = null
+const productImgArray = document.querySelectorAll('#altImages > ul > li.imageThumbnail img')
+if (productImgArray && productImgArray.length > 0) {
+  productImg = productImgArray[0].src
+  if (productImg) {
+    productImg = productImg.replace(/\._AC_US40_/, '')
+  }
+}
 
 console.log(`price: ${price}`)
 console.log(`featureArray: ${JSON.stringify(featureArray)}`)
 
 if (productId) {
   console.log(`productId = ${productId}`)
+}
+if (productName) {
+  console.log(`productName = ${productName}`)
+}
+if (productImg) {
+  console.log(`productImg = ${productImg}`)
 }
 
 insertHtml('div', 'buy-button-of-plugin', ['div#buyNow_feature_div', 'div#addToCart_feature_div'], { class: 'a-button-stack' }, {
