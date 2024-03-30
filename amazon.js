@@ -114,8 +114,21 @@ if (productImgArray && productImgArray.length > 0) {
   }
 }
 
+let quantity = 1
+const quantityNode = document.querySelector('#a-autoid-0-announce > span.a-dropdown-prompt')
+if (quantityNode) {
+  const quantityText = quantity.textContent
+  if (quantityText) {
+    quantity = Number(quantityText)
+    if (quantity === NaN) {
+      quantity = 1
+    }
+  }
+}
+
 console.log(`price: ${price}`)
 console.log(`featureArray: ${JSON.stringify(featureArray)}`)
+console.log(`quantity = ${quantity}`)
 
 if (productId) {
   console.log(`productId = ${productId}`)
