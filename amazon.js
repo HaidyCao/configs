@@ -128,7 +128,8 @@ if (quantityNode) {
 const specDetails = []
 const specDetailsNodes = document.querySelectorAll('#feature-bullets ul > li.a-spacing-mini')
 if (specDetailsNodes) {
-  for (const selector of specDetailsNodes) {
+  for (let i = 0; i < specDetailsNodes.length; i++) {
+    let selector = specDetailsNodes.item(i);
     specDetails.push(selector.textContent)
   }
 }
