@@ -130,7 +130,10 @@ const specDetailsNodes = document.querySelectorAll('#feature-bullets ul > li.a-s
 if (specDetailsNodes) {
   for (let i = 0; i < specDetailsNodes.length; i++) {
     let selector = specDetailsNodes.item(i);
-    specDetails.push(selector.textContent)
+    let textContent = selector.textContent
+    if (!isNil(textContent)) {
+      specDetails.push(textContent.trim())
+    }
   }
 }
 
@@ -150,25 +153,34 @@ if (productImg) {
 console.log(`specDetails = ${JSON.stringify(specDetails)}`)
 
 function onClickBuy() {
-  const body = {
-    productId: productId,
-    addressId: 1,
-    productImg: productImg,
-    productInfo: JSON.stringify(featureArray),
-    productName: productName,
-    quantity: quantity,
-    specDetails: JSON.stringify(specDetails),
-    unitPrice: Number(price.replace('$', ''))
-  }
-  post('https://api001.qincis.com:18081//order/create', {
-    body: body,
-    headers: [['Content-Type', 'multipart/form-data']]
-  })
-    .then((resp) => {
-      console.log(resp)
+  getToken()
+    .then(token => {
+      console.log(`token = ${token}`);
+      const body = {
+        appKey: 'MoETVeKdz373W3jHsq5ehrw',
+        token: token,
+        productId: productId,
+        addressId: 1,
+        productImg: productImg,
+        productInfo: JSON.stringify(featureArray),
+        productName: productName,
+        quantity: quantity,
+        specDetails: JSON.stringify(specDetails),
+        unitPrice: Number(price.replace('$', ''))
+      }
+      post('https://api001.qincis.com:18081//order/create', {
+        body: body,
+        headers: [['Content-Type', 'multipart/form-data']]
+      })
+        .then((resp) => {
+          console.log(resp)
+        })
+        .catch((e) => {
+          console.error(e)
+        })
     })
-    .catch((e) => {
-      console.error(e)
+    .catch(e => {
+      
     })
 }
 
