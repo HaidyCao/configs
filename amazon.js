@@ -160,7 +160,7 @@ function onClickBuy() {
         appKey: 'MoETVeKdz373W3jHsq5ehrw',
         token: token,
         productId: productId,
-        addressId: 1,
+        addressId: 20,
         productImg: productImg,
         productInfo: JSON.stringify(featureArray),
         productName: productName,
