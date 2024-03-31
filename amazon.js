@@ -125,6 +125,13 @@ if (quantityNode) {
     }
   }
 }
+const specDetails = []
+const specDetailsNodes = document.querySelectorAll('#feature-bullets ul > li.a-spacing-mini')
+if (specDetailsNodes) {
+  for (const selector of specDetailsNodes) {
+    specDetails.push(selector.textContent)
+  }
+}
 
 console.log(`price: ${price}`)
 console.log(`featureArray: ${JSON.stringify(featureArray)}`)
@@ -139,9 +146,31 @@ if (productName) {
 if (productImg) {
   console.log(`productImg = ${productImg}`)
 }
+console.log(`specDetails = ${JSON.stringify(specDetails)}`)
+
+function onClickBuy() {
+  const body = {
+    productId: productId,
+    addressId: 1,
+    productImg: productImg,
+    productInfo: JSON.stringify(featureArray),
+    productName: productName,
+    quantity: quantity,
+    specDetails: JSON.stringify(specDetails),
+    unitPrice: Number(price.replace('$', ''))
+  }
+  post('https://api001.qincis.com:18081//order/create', {
+    body: body,
+    headers: [['Content-Type', 'multipart/form-data']]
+  })
+    .then((resp) => {
+      console.log(resp)
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+}
 
 insertHtml('div', 'buy-button-of-plugin', ['div#buyNow_feature_div', 'div#addToCart_feature_div'], { class: 'a-button-stack' }, {
-  onclick: function () {
-    console.log('on click')
-  }
+  onclick: onClickBuy
 }, '<span id="submit-a-plugin-buy" class="a-button a-spacing-small a-button-primary a-button-icon natc-enabled"><span class="a-button-inner"> <i class="a-icon a-icon-cart"></i><span class="a-button-text" aria-hidden="true">Buy Buy Buy</span></span></span>')
