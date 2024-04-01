@@ -105,6 +105,11 @@ if (isNil(productName)) {
   productName = queryText('#productTitle')
 }
 
+let specDetails = {}
+for (const feature of featureArray) {
+  specDetails[feature.key] = feature.value;
+}
+
 let productImg = null
 const productImgArray = document.querySelectorAll('#altImages > ul > li.imageThumbnail img')
 if (productImgArray && productImgArray.length > 0) {
@@ -125,20 +130,16 @@ if (quantityNode) {
     }
   }
 }
-const specDetails = []
-const specDetailsNodes = document.querySelectorAll('#feature-bullets ul > li.a-spacing-mini')
-if (specDetailsNodes) {
-  for (let i = 0; i < specDetailsNodes.length; i++) {
-    let selector = specDetailsNodes.item(i);
-    let textContent = selector.textContent
-    if (!isNil(textContent)) {
-      specDetails.push(textContent.trim())
-    }
+const productInfo = {}
+const productInfoTrs = document.querySelectorAll('#productDetails_detailBullets_sections1 > tbody > tr')
+if (productInfoTrs) {
+  for (let i = 0; i < productInfoTrs.length; i++) {
+    let selector = productInfoTrs.item(i);
+    productInfo[selector.querySelector('th').innerText] = selector.querySelector('td').innerText
   }
 }
 
 console.log(`price: ${price}`)
-console.log(`featureArray: ${JSON.stringify(featureArray)}`)
 console.log(`quantity = ${quantity}`)
 
 if (productId) {
@@ -151,29 +152,51 @@ if (productImg) {
   console.log(`productImg = ${productImg}`)
 }
 console.log(`specDetails = ${JSON.stringify(specDetails)}`)
+console.log(`productInfo: ${JSON.stringify(productInfo)}`)
+
+
+function createPayment(token, orderNo) {
+  post('https://api001.qincis.com:18081/order/createPayment', {
+    body: {
+      appKey: 'MoETVeKdz373W3jHsq5ehrw',
+      token: token,
+      orderNo: orderNo
+    },
+    headers: [['Content-Type', 'multipart/form-data']]
+  })
+    .then((resp) => {
+      if (resp && resp.data && resp.data.url) {
+        window.open(`https://discount-web.vercel.app/#/order/detail?orderNo=${orderNo}`, '_blank');
+      }
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+}
 
 function onClickBuy() {
   getToken()
     .then(token => {
       console.log(`token = ${token}`);
-      const body = {
-        appKey: 'MoETVeKdz373W3jHsq5ehrw',
-        token: token,
-        productId: productId,
-        addressId: 20,
-        productImg: productImg,
-        productInfo: JSON.stringify(featureArray),
-        productName: productName,
-        quantity: quantity,
-        specDetails: JSON.stringify(specDetails),
-        unitPrice: Number(price.replace('$', ''))
-      }
-      post('https://api001.qincis.com:18081//order/create', {
-        body: body,
+      post('https://api001.qincis.com:18081/order/create', {
+        body: {
+          appKey: 'MoETVeKdz373W3jHsq5ehrw',
+          token: token,
+          productId: productId,
+          addressId: 20,
+          productImg: productImg,
+          productInfo: JSON.stringify(productInfo),
+          productName: productName,
+          quantity: quantity,
+          specDetails: JSON.stringify(specDetails),
+          unitPrice: Number(price.replace('$', ''))
+        },
         headers: [['Content-Type', 'multipart/form-data']]
       })
         .then((resp) => {
           console.log(resp)
+          console.log("create payment");
+
         })
         .catch((e) => {
           console.error(e)
