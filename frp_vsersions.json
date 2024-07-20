@@ -1,6 +1,18 @@
 {
     "versions": [
          {
+            "version": "0.59.0",
+            "downloadBaseUrl": "https://github.com/HaidyCao/FrpMobile/releases/download/v0.59.0/",
+            "arm64_frpc_md5": "b4ff2ca4abaa95bb3e5eb921cd246f77",
+            "arm64_frps_md5": "884a1c026391ba686b33591845fc73a3",
+            "arm_frpc_md5": "1337db14b5d3d0c1c08fecd81cf925b0",
+            "arm_frps_md5": "5fd5c7c10ba8c4a3c6db84144f9a48a6",
+            "x86_64_frpc_md5": "c94ba4c6ae99ead2ba7f773a32a28e22",
+            "x86_64_frps_md5": "329399696d61a9aaa961ce54779fbaf5",
+            "x86_frpc_md5": "11344b3c644d389cdddc146cf32f83b5",
+            "x86_frps_md5": "9793a875c852b54198adc52b8158681a"
+         },
+         {
             "version": "0.58.1",
             "downloadBaseUrl": "https://github.com/HaidyCao/FrpMobile/releases/download/v0.58.1/",
             "arm64_frpc_md5": "e6a09d366efe81d2543546b3ee6872f2",
